@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+_push_build/
+_results/
+_log_*/
+_q3b/
+_an_v3/
+_verify/
+kaggle.json
+.DS_Store

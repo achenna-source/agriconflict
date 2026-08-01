@@ -1,0 +1,9 @@
+torch>=2.4
+transformers>=4.51
+accelerate>=0.34
+bitsandbytes>=0.46.1
+pillow>=10.0
+numpy>=1.26
+scipy>=1.11
+matplotlib>=3.8
+kaggle>=1.6

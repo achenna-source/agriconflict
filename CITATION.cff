@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "If you use AgriConflict, please cite the accompanying article."
+title: "AgriConflict: a probe corpus for measuring modality arbitration in agricultural vision-language models"
+authors:
+  - family-names: Athmani
+    given-names: Samir
+    affiliation: "LASTIC Laboratory, Universite Batna 2"
+  - family-names: Chenna
+    given-names: Abdelbassette
+    affiliation: "LASTIC Laboratory, Universite Batna 2"
+  - family-names: Boubiche
+    given-names: DjallelEddine
+    affiliation: "LASTIC Laboratory, Universite Batna 2"
+license: MIT
+repository-code: "https://github.com/achenna-source/agriconflict"
