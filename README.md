@@ -64,26 +64,47 @@ Three findings:
 2. **Arbitration is negative for all four**, including the one model whose visual channel is demonstrably functional — so arbitration failure is not explained by perceptual failure.
 3. **Provenance gates the text channel, never the image.** A "laboratory-confirmed" marker on a *false* report increases wrong-report following by 19–66 points. The image is chosen at most 6% of the time under conflict.
 
+### Field-condition replication
+
+The same protocol was replicated on PlantDoc, whose images are photographed in the field. 12,000 probes per model, four models.
+
+| Model | Vision gate lab → field | A lab → field | 95% CI field |
+|---|---|---|---|
+| Qwen2.5-VL-3B | 0.107 ✗ → **0.436 ✓** | −0.085 → −0.059 | [−0.087, −0.031] |
+| Qwen2.5-VL-7B | 0.183 ✗ → **0.471 ✓** | −0.294 → −0.324 | [−0.359, −0.290] |
+| InternVL3-8B | 0.428 ✓ → **0.677 ✓** | −0.117 → −0.031 | [−0.065, +0.003] |
+| Qwen2.5-Omni-7B | 0.191 ✗ → **0.358 ✓** | −0.369 → −0.450 | [−0.481, −0.418] |
+
+All four models pass the vision gate on field imagery; three failed it on laboratory imagery. This contradicts the expectation that laboratory conditions are the easier case, and it is not an artefact of option difficulty: the probability that four randomly drawn options belong to four distinct crops is 0.539 for PlantVillage and 0.530 for PlantDoc.
+
+**Arbitration stays negative in seven of eight measurements and is never positive.** The one interval containing zero belongs to InternVL3-8B on field imagery, which means it becomes indistinguishable from a fixed-channel policy, not that it arbitrates. Two models do *worse* on field imagery despite seeing better. The central finding is not an artefact of laboratory conditions.
+
 ---
 
 ## Repository layout
 
 ```
 src/
-  build_probes.py     generate the corpus from PlantVillage (deterministic, seeded)
-  run_eval.py         evaluate one model; forced choice, first-token logits
-  analyze.py          gates, arbitration index, source attribution, deference, language
-  saga.py             reliability-weighted arbitration + conformal abstention
-  verify_corpus.py    corpus integrity and identification checks
-  kaggle_runner.py    push and run the pipeline on Kaggle via the API
+  build_probes.py        generate the laboratory corpus from PlantVillage (deterministic, seeded)
+  build_probes_field.py  generate the field corpus from PlantDoc, identical process
+  run_eval.py            evaluate one model; forced choice, first-token logits
+  analyze.py             gates, arbitration index, source attribution, deference, language
+  saga.py                reliability-weighted arbitration + conformal abstention
+  compare_corpora.py     laboratory against field, item-clustered intervals
+  figures.py             manuscript figures
+  verify_corpus.py       corpus integrity and identification checks
+  kaggle_runner.py       push and run the pipeline on Kaggle via the API
 notebooks/
   colab_internvl.ipynb
 docs/
   preregistration.md  analysis plan and interpretation rules, fixed before the runs
 results/
-  raw/*.jsonl.gz      per-probe records: prediction, gold, chosen source, per-letter logits
-  analysis/           results.json, results_saga.json, fig_arbitration.png
-  probes_meta.json    corpus parameters and realised reliabilities
+  raw/*.jsonl.gz        laboratory corpus, per-probe records: prediction, gold,
+                        chosen source, per-letter logits
+  raw_field/*.jsonl.gz  field corpus, same schema
+  analysis/             results.json, results_saga.json, results_corpora.json
+  figures/              the four manuscript figures
+  probes_meta.json      corpus parameters and realised reliabilities
 reproduce.py          rebuild every reported number from the raw records
 ```
 
@@ -107,9 +128,13 @@ The corpus is deterministic given the seed, so it is not redistributed — Plant
 ```bash
 # obtain PlantVillage, then:
 PV_ROOT=/path/to/plantvillage/color python src/build_probes.py
+
+# obtain PlantDoc, then:
+PD_ROOT=/path/to/plantdoc/train python src/build_probes_field.py
 ```
 
-Seed `20260730`, 2,000 items, 6 cells, 2 languages → 24,000 probes. `results/probes_meta.json` records the realised reliabilities for comparison.
+Laboratory: seed `20260730`, 2,000 items, 6 cells, 2 languages → 24,000 probes.
+Field: seed `20260801`, 1,000 items → 12,000 probes. `results/probes_meta.json` records the realised reliabilities for comparison.
 
 ## Evaluating a new model
 
@@ -131,6 +156,7 @@ Stated plainly, because the article does the same:
 - **`saga.py` supplies oracle per-source decisions.** It measures the arbitration layer in isolation. These are not end-to-end figures; per-source perception error would propagate. They are directly comparable to the +0.634 ceiling, which is computed the same way.
 - **PlantVillage is laboratory imagery** — single leaves, uniform backgrounds. This is the easiest possible case for the visual channel, which strengthens a negative result but leaves field generalisation untested.
 - **No dedicated agricultural VLM is included.** None had publicly retrievable weights when the audit was run; the dated record is in the article.
+- **SAGA is evaluated on the laboratory corpus only.**
 - **Two languages**, English and French.
 
 ---
