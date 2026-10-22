@@ -1,5 +1,5 @@
 """
-AgriConflict — pousse et lance les notebooks sur Kaggle via l'API.
+AgriConflict : pousse et lance les notebooks sur Kaggle via l'API.
 
 PREREQUIS (une seule fois, 2 min) :
   1. https://www.kaggle.com/settings  ->  section API  ->  "Create New Token"

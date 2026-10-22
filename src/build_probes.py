@@ -1,5 +1,5 @@
 """
-AgriConflict v3 — Notebook 1 (CPU) : construction du jeu de sondes.
+AgriConflict v3, notebook 1 (CPU) : construction du jeu de sondes.
 
 --------------------------------------------------------------------------------
 POURQUOI v3 : casser la circularite de rho

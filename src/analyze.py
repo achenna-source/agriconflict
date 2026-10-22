@@ -1,5 +1,5 @@
 """
-AgriConflict v3 — Notebook 3 (CPU) : analyse.
+AgriConflict v3, notebook 3 (CPU) : analyse.
 
 Ce qui change par rapport a la v2. Les sous-ensembles ne sont plus definis par le
 plan experimental mais par la CORRECTION REELLE des sources :
@@ -230,7 +230,7 @@ def main() -> None:
                         (1.0, "oracle", "#55A868")]:
         ax.axhline(y, ls="--", lw=1.1, color=col, label=lab)
     ax.set_xticks(xs); ax.set_xticklabels(models, rotation=20, ha="right")
-    ax.set_ylabel("A — arbitrage"); ax.set_ylim(-0.3, 1.05)
+    ax.set_ylabel("A, arbitrage"); ax.set_ylim(-0.3, 1.05)
     ax.legend(fontsize=8); ax.set_title("Arbitrage mesure contre ses bornes")
     fig.tight_layout(); fig.savefig(OUT / "fig_arbitration_v3.png", dpi=300)
 

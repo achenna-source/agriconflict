@@ -101,7 +101,7 @@ def main():
                 print(f"!! absent : {corpus}/{m}")
 
     print("=" * 100)
-    print("PORTE VISION (V0)  —  hasard 0.20")
+    print("PORTE VISION (V0)  |  hasard 0.20")
     print("=" * 100)
     print(f"  {'modele':<17}{'labo':>10}{'terrain':>10}{'ecart':>10}   admission")
     for m in ORDER:
@@ -112,7 +112,7 @@ def main():
               f"{b['V0']-a['V0']:>+10.3f}   {adm}")
 
     print("\n" + "=" * 100)
-    print("VISION CONDITIONNEE A L'ENGAGEMENT  —  hasard 0.25")
+    print("VISION CONDITIONNEE A L'ENGAGEMENT  |  hasard 0.25")
     print("=" * 100)
     print(f"  {'modele':<17}{'engage L':>10}{'acc|eng L':>11}{'engage T':>10}{'acc|eng T':>11}")
     for m in ORDER:

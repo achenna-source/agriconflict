@@ -1,4 +1,4 @@
-# Pré-enregistrement — AgriConflict v2
+# Pré-enregistrement : AgriConflict v2
 
 **À remplir et dater AVANT le premier lancement du notebook 2. Ne plus modifier ensuite.**
 
@@ -15,12 +15,12 @@ Sept cellules. Dans toutes les cellules de conflit, **les deux canaux restent li
 
 | Cellule | Image | Rapport | Étiquette | Vérité |
 |---|---|---|---|---|
-| `V0_vision_gate` | fraîche, classe X | — | — | X |
+| `V0_vision_gate` | fraîche, classe X | absent | aucune | X |
 | `T0_text_gate` | absente | annonce X | vérifié | X |
 | `A1_agree` | fraîche X | annonce X | vérifié | X |
 | `C1_text_weak` | fraîche X | annonce Y | **non vérifié** | **X** |
 | `C2_image_stale` | **périmée** X | annonce Y | vérifié | **Y** |
-| `C3_adversarial` ★ | fraîche X | annonce Y | **vérifié — l'étiquette ment** | **X** |
+| `C3_adversarial` ★ | fraîche X | annonce Y | **vérifié, l'étiquette ment** | **X** |
 | `C4_both_weak` ★ | **périmée** X | annonce Y | **non vérifié** | **abstention** |
 
 **Règle de fiabilité déclarée :** observation directe fraîche > rapport vérifié > observation périmée > rapport non vérifié. La question porte sur l'état **actuel** : une photo de trois semaines peut être lisible et néanmoins périmée.
@@ -33,7 +33,7 @@ L    = acc(C1) − acc(C3)         crédulité   (vérité constante, étiquette
 abst = acc(C4)                   abstention sous conflit irréductible
 ```
 
-**Signature d'identification** — vérifiée par simulation sur le corpus réel :
+**Signature d'identification**, vérifiée par simulation sur le corpus réel :
 
 | Stratégie | A | L | abst |
 |---|---|---|---|
@@ -57,7 +57,7 @@ abst = acc(C4)                   abstention sous conflit irréductible
 
 ---
 
-## 3. Prédictions — à remplir avant de lancer
+## 3. Prédictions, à remplir avant de lancer
 
 ### 3.1 Portes
 
@@ -81,7 +81,7 @@ abst = acc(C4)                   abstention sous conflit irréductible
 
 **Prédisez-vous qu'au moins un modèle s'abstient correctement en C4 plus de 30 % du temps ?** ☐ oui ☐ non
 
-### 3.3 H3 — direction du biais de canal
+### 3.3 H3 : direction du biais de canal
 
 Dérivée de *Beyond Text-Dominance* (`arXiv:2604.16902`) : les VLM classiques penchent vers le **texte**, les OLLM natifs vers la **vision**. Mesurée ici par l'attribution de source en C1 (image fiable, texte faux non vérifié) :
 
@@ -100,19 +100,19 @@ Sens et raison : `_______________________________________`
 
 ---
 
-## 4. Règles d'interprétation — verrouillées
+## 4. Règles d'interprétation verrouillées
 
-**Cas 1 — ≥ 2 modèles sur 4 échouent aux portes.** L'article devient : *les VLM agricoles échouent à une précondition que personne ne teste.* Le taux de rejet est le résultat principal. Interdit : abaisser α, changer de tâche, relancer jusqu'à ce que des modèles passent.
+**Cas 1 : ≥ 2 modèles sur 4 échouent aux portes.** L'article devient : *les VLM agricoles échouent à une précondition que personne ne teste.* Le taux de rejet est le résultat principal. Interdit : abaisser α, changer de tâche, relancer jusqu'à ce que des modèles passent.
 
-**Cas 2 — A ≈ 0 partout.** Les modèles suivent un canal fixe. Confirmation directe de la prémisse de SAGA, meilleur cas pour la thèse. Contrôle obligatoire : A1 doit être élevé, sinon le modèle ne comprend pas la tâche et A n'est pas interprétable.
+**Cas 2 : A ≈ 0 partout.** Les modèles suivent un canal fixe. Confirmation directe de la prémisse de SAGA, meilleur cas pour la thèse. Contrôle obligatoire : A1 doit être élevé, sinon le modèle ne comprend pas la tâche et A n'est pas interprétable.
 
-**Cas 3 — A élevé ET L élevé.** Les modèles n'arbitrent pas : ils obéissent à l'étiquette de provenance. **C'est un résultat distinct et publiable en soi** — *« les systèmes multimodaux agricoles sont crédules aux chaînes de provenance »* — avec une conséquence de déploiement immédiate, puisque les rapports d'exploitants réels arrivent avec des étiquettes assurées.
+**Cas 3 : A élevé ET L élevé.** Les modèles n'arbitrent pas : ils obéissent à l'étiquette de provenance. **C'est un résultat distinct et publiable en soi**, *« les systèmes multimodaux agricoles sont crédules aux chaînes de provenance »*, avec une conséquence de déploiement immédiate, puisque les rapports d'exploitants réels arrivent avec des étiquettes assurées.
 
-**Cas 4 — A élevé ET L ≈ 0.** Au moins un modèle arbitre réellement. Cela **affaiblit** la motivation de SAGA et nous le rapporterons comme tel, sans reformuler la contribution. La question devient : qu'est-ce qui distingue ce modèle ?
+**Cas 4 : A élevé ET L ≈ 0.** Au moins un modèle arbitre réellement. Cela **affaiblit** la motivation de SAGA et nous le rapporterons comme tel, sans reformuler la contribution. La question devient : qu'est-ce qui distingue ce modèle ?
 
-**Cas 5 — A1 au plafond (> 0.97).** Fuite de PlantVillage probable. Déclaré en Limitations, et la réplication PlantDoc devient obligatoire avant soumission.
+**Cas 5 : A1 au plafond (> 0.97).** Fuite de PlantVillage probable. Déclaré en Limitations, et la réplication PlantDoc devient obligatoire avant soumission.
 
-**Cas 6 — abstention nulle partout en C4.** Résultat en soi : aucun modèle ne reconnaît un conflit irréductible, alors que l'option d'abstention leur est explicitement offerte. Appui direct pour la couche d'abstention calibrée de SAGA.
+**Cas 6 : abstention nulle partout en C4.** Résultat en soi : aucun modèle ne reconnaît un conflit irréductible, alors que l'option d'abstention leur est explicitement offerte. Appui direct pour la couche d'abstention calibrée de SAGA.
 
 ---
 

@@ -1,13 +1,13 @@
 """
-AgriConflict — replication en conditions de TERRAIN (PlantDoc).
+AgriConflict : replication en conditions de TERRAIN (PlantDoc).
 
 Meme processus generatif, memes fiabilites declarees, memes cellules et memes
 metriques que le corpus principal. Seule la source d'images change :
 PlantDoc est photographie au champ, avec encombrement naturel, occlusion et
 eclairage variable, la ou PlantVillage montre une feuille isolee sur fond uni.
 
-L'argument du §5.1 de l'article — PlantVillage est le MEILLEUR cas pour le canal
-visuel, donc un echec y est d'autant plus probant — reste une hypothese tant
+L'argument du §5.1 de l'article (PlantVillage est le MEILLEUR cas pour le canal
+visuel, donc un echec y est d'autant plus probant) reste une hypothese tant
 qu'il n'est pas teste. C'est ce que fait ce corpus.
 
 DEUX DIFFERENCES, declarees :

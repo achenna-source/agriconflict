@@ -1,5 +1,5 @@
 """
-AgriConflict v3 — Notebook 4 : SAGA sur le meme banc que les modeles audites.
+AgriConflict v3, notebook 4 : SAGA sur le meme banc que les modeles audites.
 
 --------------------------------------------------------------------------------
 CE QUI EST MESURE, ET CE QUI NE L'EST PAS  (a lire avant tout chiffre)
@@ -19,8 +19,13 @@ DECISIONS PAR SOURCE : POURQUOI ELLES SONT ORACULAIRES ICI
 En v3 chaque cellule peut montrer une photographie DIFFERENTE (l'image perimee
 represente l'etat d'avant traitement). La reponse du modele en V0_gate ne porte
 donc que sur l'image de cette cellule-la et ne peut pas servir de decision-image
-pour les autres. Il aurait fallu une passe image-seule par cellule ; elle n'existe
-pas dans ce corpus.
+pour les autres. Il aurait fallu une passe image-seule par cellule ; elle n'existait
+pas quand ce script a ete ecrit.
+
+MISE A JOUR. Cette passe a depuis ete construite (build_probes_imageonly.py) et le
+calcul de bout en bout vit dans end_to_end.py. Le present script reste la version
+ORACULAIRE, telle qu'executee : c'est la borne superieure de la couche d'arbitrage,
+pas une estimation de deploiement. Pour cette derniere, lire end_to_end.py.
 
 Nous evaluons donc la COUCHE D'ARBITRAGE ISOLEMENT, en lui fournissant les
 decisions par source exactes (letter_image, letter_text). Consequences, a enoncer
@@ -111,7 +116,7 @@ def thresholds_at(cal: list[dict], rho: dict, uniform: bool,
 def thresholds(cal: list[dict], rho: dict, uniform: bool) -> dict[str, float]:
     """Mondrian : un seuil par cellule de provenance, pour borner l'erreur
     DANS CHAQUE strate et non en moyenne. Si aucun seuil n'atteint ALPHA,
-    la strate s'abstient entierement — c'est le comportement correct."""
+    la strate s'abstient entierement, c'est le comportement correct."""
     th = {}
     for cell in {r["cell"] for r in cal}:
         sub = [(arbitrate(r, rho, uniform)[1], int(arbitrate(r, rho, uniform)[0] == r["gold"]))
@@ -146,7 +151,7 @@ def evaluate(test: list[dict], policy) -> dict:
 
 def main() -> None:
     rng = random.Random(SEED)
-    print(f"SAGA v3 — alpha={ALPHA} | bornes : canal fixe 0.000, "
+    print(f"SAGA v3 | alpha={ALPHA} | bornes : canal fixe 0.000, "
           f"Bayes-provenance +0.634, oracle +1.000\n")
     summary = {}
 

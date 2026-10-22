@@ -1,10 +1,10 @@
 """
-AgriConflict — Notebook 2 (GPU T4) : evaluation d'un modele.
+AgriConflict, notebook 2 (GPU T4) : evaluation d'un modele.
 
 UN NOTEBOOK PAR MODELE. Reglez MODEL_ID ci-dessous, puis Save Version.
 
 Methode : choix multiple force, lecture des logits du PREMIER TOKEN.
-Un seul passage avant par sonde — pas de generation autoregressive.
+Un seul passage avant par sonde : pas de generation autoregressive.
 => deterministe, aucun echec de parsing, 10-30x plus rapide.
 
 Reprise sur interruption : relancer le notebook reprend ou il s'est arrete
@@ -26,7 +26,7 @@ from PIL import Image
 from transformers import AutoProcessor, AutoModelForImageTextToText, BitsAndBytesConfig
 
 # --------------------------------------------------------------------------
-# Configuration — A MODIFIER pour chaque modele
+# Configuration : A MODIFIER pour chaque modele
 # --------------------------------------------------------------------------
 MODEL_ID = "Qwen/Qwen2.5-VL-3B-Instruct"
 SHORT_NAME = "qwen25vl-3b"
@@ -200,7 +200,7 @@ def main() -> None:
 
     todo = [p for p in probes if p["probe_id"] not in done]
     if not todo:
-        print("Rien a faire — evaluation deja complete.")
+        print("Rien a faire : evaluation deja complete.")
         return
     print(f"A traiter : {len(todo)}")
 
